@@ -367,13 +367,20 @@
             Object.keys(timers).forEach(name => {
                 const timer = timers[name];
                 
+                // Skip if this agent is currently running
+                if (timer.running) {
+                    return;
+                }
+                
                 if (timer.remaining > 0) {
                     timer.remaining--;
                     updateTimerDisplay(name);
                 } else {
-                    // Timer reached zero - trigger agent automatically
+                    // Timer reached zero - reset immediately and trigger agent
                     console.log(`Timer expired for ${name} agent - triggering automatically`);
-                    runAgent(name);
+                    timer.remaining = timer.duration; // Reset timer first
+                    updateTimerDisplay(name);
+                    runAgent(name); // Then trigger the agent
                 }
             });
         }
@@ -391,6 +398,12 @@
             
             console.log(`${agentName} agent triggered`);
             timers[agentName].running = true;
+            
+            // For manual runs, reset timer immediately
+            if (event) {
+                timers[agentName].remaining = timers[agentName].duration;
+                updateTimerDisplay(agentName);
+            }
             
             // Update display to show running state
             const timerElement = document.getElementById(timers[agentName].element);
@@ -432,18 +445,11 @@
                 
                 console.log(`${agentName} agent response:`, response);
                 
-                // Reset the timer for this agent
-                timers[agentName].remaining = timers[agentName].duration;
-                updateTimerDisplay(agentName);
-                
                 // Reload documents after agent runs
                 setTimeout(() => loadDocuments(), 2000);
                 
             } catch (error) {
                 console.error(`${agentName} agent failed:`, error);
-                // Still reset timer even if there's an error
-                timers[agentName].remaining = timers[agentName].duration;
-                updateTimerDisplay(agentName);
             } finally {
                 timers[agentName].running = false;
                 // Reset timer color
