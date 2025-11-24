@@ -170,24 +170,24 @@
             <!-- Research Agent -->
             <div class="agent-card">
                 <div class="agent-title">Research</div>
-                <div class="agent-subtitle">Runs every 15 minutes</div>
-                <div class="timer-display" id="researchTimer">15:00</div>
+                <div class="agent-subtitle">Runs every 7 minutes</div>
+                <div class="timer-display" id="researchTimer">7:00</div>
                 <button class="manual-run-btn" onclick="runAgent('research', event)">Manual Run</button>
             </div>
 
             <!-- Organization Agent -->
             <div class="agent-card">
                 <div class="agent-title">Organization</div>
-                <div class="agent-subtitle">Runs every 30 minutes</div>
-                <div class="timer-display" id="organizationTimer">30:00</div>
+                <div class="agent-subtitle">Runs every 10 minutes</div>
+                <div class="timer-display" id="organizationTimer">10:00</div>
                 <button class="manual-run-btn" onclick="runAgent('organization', event)">Manual Run</button>
             </div>
 
             <!-- Free Thought Agent -->
             <div class="agent-card">
                 <div class="agent-title">Free Thought</div>
-                <div class="agent-subtitle">Runs every 1 hour</div>
-                <div class="timer-display" id="freeThoughtTimer">1:00:00</div>
+                <div class="agent-subtitle">Runs every 15 minutes</div>
+                <div class="timer-display" id="freeThoughtTimer">15:00</div>
                 <button class="manual-run-btn" onclick="runAgent('freeThought', event)">Manual Run</button>
             </div>
         </div>
@@ -331,9 +331,9 @@
 
         // Timer management
         const timers = {
-            research: { duration: 15 * 60, remaining: 15 * 60, element: 'researchTimer', running: false },
-            organization: { duration: 30 * 60, remaining: 30 * 60, element: 'organizationTimer', running: false },
-            freeThought: { duration: 60 * 60, remaining: 60 * 60, element: 'freeThoughtTimer', running: false }
+            research: { duration: 7 * 60, remaining: 7 * 60, element: 'researchTimer', running: false },
+            organization: { duration: 10 * 60, remaining: 10 * 60, element: 'organizationTimer', running: false },
+            freeThought: { duration: 15 * 60, remaining: 15 * 60, element: 'freeThoughtTimer', running: false }
         };
         
         // Agent interaction endpoints (from Vertesia)
@@ -421,7 +421,7 @@
                         type: 'conversation',
                         interaction: interaction,
                         data: {
-                            Task: prompt,
+                            task: prompt,
                         },
                         config: {
                             environment: CONFIG.ENVIRONMENT_ID,
